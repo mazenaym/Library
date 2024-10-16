@@ -8,7 +8,7 @@ namespace Library.Models
         public int PenaltyID { get; set; }
         public int MemberID { get; set; }
         public int CheckoutID { get; set; }
-        public decimal? Amount { get; set; }
+        public int? Amount { get; set; }
         public DateTime? PaidDate { get; set; }
 
 

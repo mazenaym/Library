@@ -1,0 +1,32 @@
+﻿@using Library.ViewModels
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/AuthLayout.cshtml";
+}
+
+@model LoginViewModel
+
+<html>
+     
+<head>
+    <link href="~/css/authStyle.css" rel="stylesheet" />
+
+</head>
+
+
+<div asp-validation-summary="All"></div>
+
+<body>
+
+    <form asp-action="Login" method="post" class="login-form">
+        <input asp-for="Email" type="text" placeholder="email" />
+        <input asp-for="Password" type="password" placeholder="password" />
+        <button type="submit">Login</button>
+        <p class="message">Don't have an account?' <a asp-action="register">Register Now</a></p>
+    </form>
+
+</body>
+</html>
+
+

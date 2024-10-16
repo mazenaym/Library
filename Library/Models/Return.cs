@@ -8,7 +8,7 @@ namespace Library.Models
         public int ReturnID { get; set; }
         public int CheckoutID { get; set; }
         public DateTime ReturnDate { get; set; }
-        public decimal PenaltyAmount { get; set; }
+        public int PenaltyAmount { get; set; }
         public required Checkout Checkout { get; set; }
 
 

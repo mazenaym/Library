@@ -1,4 +1,6 @@
 using Library.Data;
+using Library.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library
@@ -18,6 +20,9 @@ namespace Library
                 }
 
             );
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,7 +42,7 @@ namespace Library
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Accounts}/{action=Register}/{id?}");
 
             app.Run();
         }
