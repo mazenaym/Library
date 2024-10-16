@@ -2,7 +2,7 @@
 
 namespace Library.Controllers
 {
-    public class BookController : Controller
+    public class MemberController : Controller
     {
         public IActionResult Index()
         {
