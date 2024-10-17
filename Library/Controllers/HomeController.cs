@@ -17,8 +17,8 @@ namespace Library.Controllers
 
         public IActionResult Index()
         {
-            var memberList = _context.members.ToList();
-            return View(memberList);
+            
+            return View();
         }
 
         public IActionResult Privacy()

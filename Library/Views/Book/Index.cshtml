@@ -1,1 +1,31 @@
-﻿
+﻿<table class=" table table-bordered table-light">
+    <thead>
+        <td>BookID</td>
+    <td>Title</td>
+    <td>Author</td>
+    <td>Genre</td>
+    <td>PublishedDate</td>
+    </thead>
+    <tbody>
+        @foreach(var books in @Model)
+        {
+            <tr>
+                <td>
+                    @books.BookID
+                </td>
+                <td>
+                    @books.Title
+                </td>
+                <td>
+                    @books.Author
+                </td>
+                <td>
+                    @books.Genre
+                </td>
+                <td>
+                    @books. PublishedDate
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
