@@ -10,11 +10,9 @@ namespace Library.Models
         public int MemberID { get; set; }
         public required DateTime CheckoutDate { get; set; }
         public DateTime DueDate { get; set; }
-        public DateTime? ReturnedDate { get; set; }
-        public required Book Book { get; set; }
-        public required Member Member { get; set; }
-
-
+        public DateTime ReturnedDate { get; set; }
+        public Book? Book { get; set; }
+        public Member? Member { get; set; }
 
     }
 }

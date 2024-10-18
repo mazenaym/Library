@@ -1,1 +1,33 @@
-﻿
+﻿<table class=" table table-bordered table-light">
+    <thead>
+    <td>Member</td>
+    <td>Title</td>
+    <td>CheckoutDate</td>
+    <td>DueDate</td>
+    <td>ReturnedDate</td>
+
+    </thead>
+    <tbody>
+        @foreach (var books in @Model)
+        {
+            <tr>
+                <td>
+                    @books.Member.FirstName
+                </td>
+                <td>
+                    @books.Book.Title
+                </td>
+                <td>
+                    @books.CheckoutDate
+                </td>
+                <td>
+                    @books.DueDate
+                </td>
+                <td>
+                    @books.ReturnedDate
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

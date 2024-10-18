@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
@@ -16,6 +17,23 @@ namespace Library.Controllers
         {
             var memberList=_context.members.ToList();
             return View(memberList);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.members.Add(member);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(member);  // In case of validation errors, return the form with entered data
         }
     }
 }
