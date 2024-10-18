@@ -22,6 +22,7 @@ namespace Library
             );
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddAuthorization(op => op.AddPolicy("AdminRole", p => p.RequireClaim("Admin", "Admin")));
 
             var app = builder.Build();
 
@@ -42,7 +43,7 @@ namespace Library
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Accounts}/{action=Register}/{id?}");
 
             app.Run();
         }
