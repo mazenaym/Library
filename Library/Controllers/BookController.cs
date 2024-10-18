@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using Library.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,22 @@ namespace Library.Controllers
         {
             var bookList = _context.Books.ToList();
             return View(bookList);
+        }
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(Book newBook)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Books.Add(newBook);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(newBook);  // In case of validation errors, return the form with entered data
         }
     }
 }
