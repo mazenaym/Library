@@ -1,5 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<table class=" table table-bordered table-light">
+    <thead>
+    <td>MemberID</td>
+    <td>FirstName</td>
+    <td>LastName</td>
+    <td>PhoneNumber</td>
+    <td>RegistrationDate</td>
+    </thead>
+    <tbody>
+        @foreach (var members in @Model)
+        {
+            <tr>
+                <td>
+                    @members.MemberID
+                </td>
+                <td>
+                    @members.FirstName
+                </td>
+                <td>
+                    @members.LastName
+                </td>
+                <td>
+                    @members.PhoneNumber
+                </td>
+                <td>
+                    @members.RegistrationDate
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
