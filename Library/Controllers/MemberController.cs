@@ -1,4 +1,4 @@
-﻿using Library.Data;
+using Library.Data;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
