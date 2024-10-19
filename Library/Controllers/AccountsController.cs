@@ -1,7 +1,9 @@
-﻿using Library.Models;
+﻿using Library.Data;
+using Library.Models;
 using Library.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
@@ -10,11 +12,13 @@ namespace Library.Controllers
 
         private readonly UserManager<ApplicationUser> _UserManager;
         private readonly SignInManager<ApplicationUser> _SignInManager;
+        private readonly ApplicationDbContext _context;
 
-        public AccountsController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountsController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
         {
             _UserManager = userManager;
             _SignInManager = signInManager;
+            _context = context;
         }
 
         public IActionResult Register()
@@ -37,6 +41,20 @@ namespace Library.Controllers
                 var res = _UserManager.CreateAsync(user, model.Password).Result;
                 if (res.Succeeded) 
                 {
+                    //Creating a new member
+                    var member = new Member
+
+                    {
+
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhoneNumber=model.PhoneNumber,
+                       
+                        RegistrationDate = DateTime.Now
+
+                    };
+                    _context.members.Add(member);
+                    _context.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 foreach (var error in res.Errors)
