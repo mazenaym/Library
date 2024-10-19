@@ -1,31 +1,33 @@
-﻿<table class=" table table-bordered table-light">
-    <thead>
-        <td>BookID</td>
-    <td>Title</td>
-    <td>Author</td>
-    <td>Genre</td>
-    <td>PublishedDate</td>
+﻿<table class="table table-striped table-hover table-bordered rounded shadow-sm mt-4">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th scope="col">Book ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Published Date</th>
+            <th scope="col">Actions</th>
+        </tr>
     </thead>
     <tbody>
-        @foreach(var books in @Model)
+        @foreach (var book in Model)
         {
             <tr>
+                <td>@book.BookID</td>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.PublishedDate.ToString("yyyy-MM-dd")</td>
                 <td>
-                    @books.BookID
-                </td>
-                <td>
-                    @books.Title
-                </td>
-                <td>
-                    @books.Author
-                </td>
-                <td>
-                    @books.Genre
-                </td>
-                <td>
-                    @books.PublishedDate
+                    <a asp-action="Edit" asp-route-id="@book.BookID" class="btn btn-sm btn-warning mx-1">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@book.BookID" class="btn btn-sm btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<div>
+    <a asp-controller="Book" asp-action="Add" class="btn btn-primary" style="font-weight: bold;">
+        Add Book
+    </a>
+</div>

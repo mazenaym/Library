@@ -15,7 +15,7 @@
                 
             </blockquote>
             <p class="lead " style=" color:black;font-weight: bold; font-size:medium">Find your favorite books easily:</p>
-            <form class="d-flex justify-content-center" method="get" asp-action="SearchBooks">
+            <form class="d-flex justify-content-center" method="get" asp-controller="Book" asp-action="Search">
                 <input class="form-control me-2" type="search" name="query" placeholder="Search Books" aria-label="Search" style="max-width: 400px;">
                 <button class="btn btn-outline-success" type="submit" style="color:darkgreen; font-weight: bold;">Search</button>
             </form>

@@ -1,0 +1,19 @@
+﻿@model Library.Models.Book
+
+<h2>Delete Book</h2>
+
+<div class="alert alert-warning">
+    <h4>Are you sure you want to delete this book?</h4>
+    <div>
+        <p>Title: @Model.Title</p>
+        <p>Author: @Model.Author</p>
+        <p>Genre: @Model.Genre</p>
+        <p>Published Date: @Model.PublishedDate.ToString("yyyy-MM-dd")</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="BookID" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
