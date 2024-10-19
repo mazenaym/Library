@@ -14,7 +14,7 @@ namespace Library.Controllers
         }
         public IActionResult Index()
         {
-            var memberList=_context.members.ToList();
+            var memberList= _context.members.ToList();
             return View(memberList);
         }
     }

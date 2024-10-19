@@ -12,7 +12,9 @@ namespace Library.Models
 
         public DateTime RegistrationDate { get; set; }
 
+        public List<Checkout> Checkouts { get; set; }
 
-        
+
+
     }
 }

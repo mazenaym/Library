@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
-    [Authorize("AdminRole")]
+    //[Authorize("AdminRole")]
     public class BookController : Controller
     {
         private readonly ILogger<BookController> _logger;
