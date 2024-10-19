@@ -43,14 +43,57 @@ namespace Library.Controllers
         [HttpPost]
         public IActionResult Create(Checkout checkout)
         {
-            
+            var books = _context.Books.ToList();
+            ViewBag.BookID = books.Select(book => new SelectListItem
+            {
+                Value = book.BookID.ToString(),
+                Text = book.Title + " " + book.Author
+            }).ToList();
+
+            var members = _context.members.ToList();
+            ViewBag.MemberID = members.Select(member => new SelectListItem
+            {
+                Value = member.MemberID.ToString(),
+                Text = member.FirstName + " " + member.LastName
+            }).ToList();
+
             if (ModelState.IsValid)
             {
                 _context.checkouts.Add(checkout);
-                _context.SaveChanges();
+
+                #region Reduce No of Available Copies
+                var book = _context.Books.FirstOrDefault(b => b.BookID == checkout.BookID);
+                if (book != null)
+                {
+                    if(checkout.CheckoutDate > checkout.ReturnedDate)
+                    {
+                        TempData["DateValidationMessage"] = "Return Date should be greater than Checkout Date";
+                        return View();
+                    }
+
+                    if (book.AvailableCopies > 0)
+                    {
+                        book.AvailableCopies -= 1;
+                        _context.Books.Update(book);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        TempData["AvailableCopiesValidationMessage"] = "The book is currently out of stock.";
+                        return View();
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "The book could not be found.";
+                    return RedirectToAction("Index");
+                }
+                #endregion
+
                 return RedirectToAction("Index");
             }
-            return View(checkout);  // In case of validation errors, return the form with entered data
+
+            return View(checkout);
         }
     }
 }

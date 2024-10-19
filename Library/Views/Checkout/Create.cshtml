@@ -4,10 +4,23 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>View</h1>
-
 <h4>Checkout</h4>
 <hr />
+
+@if (TempData["AvailableCopiesValidationMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["AvailableCopiesValidationMessage"]
+    </div>
+}
+@if (TempData["DateValidationMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["DateValidationMessage"]
+    </div>
+}
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -35,6 +48,7 @@
                 <input asp-for="ReturnedDate" class="form-control" />
                 <span asp-validation-for="ReturnedDate" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

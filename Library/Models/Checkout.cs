@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
 {
@@ -6,7 +7,11 @@ namespace Library.Models
     {
         [Key]
         public int CheckoutID { get; set; }
+
+        [DisplayName("Book Name & Author")]
         public int BookID { get; set; }
+
+        [DisplayName("Member Name")]
         public int MemberID { get; set; }
         public required DateTime CheckoutDate { get; set; }
         public DateTime DueDate { get; set; }
