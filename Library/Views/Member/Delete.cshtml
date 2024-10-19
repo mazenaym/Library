@@ -1,19 +1,18 @@
-﻿@model Library.Models.Book
+﻿@model Library.Models.Member
 
-<h2>Delete Book</h2>
+<h2>Delete Member</h2>
 
 <div class="alert alert-warning">
     <h4>Are you sure you want to delete this book?</h4>
     <div>
-        <p>Title: @Model.Title</p>
-        <p>Author: @Model.Author</p>
-        <p>Genre: @Model.Genre</p>
-        <p>Published Date: @Model.PublishedDate.ToString("yyyy-MM-dd")</p>
+        <p>Name: @Model.FirstName @Model.LastName</p>
+        <p>phone Number: @Model.PhoneNumber</p>
+        <p>Registration Date: @Model.RegistrationDate.ToString("yyyy-MM-dd")</p>
     </div>
 </div>
 
 <form asp-action="Delete" method="post">
-    <input type="hidden" asp-for="BookID" />
+    <input type="hidden" asp-for="MemberID" />
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
