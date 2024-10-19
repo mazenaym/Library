@@ -18,5 +18,24 @@ namespace Library.Controllers
             var returnList = _context.returns.ToList();
             return View(returnList);
         }
+
+        public IActionResult ReturnBook(int checkoutId)
+        {
+            var checkout = _context.checkouts.Find(checkoutId);
+            checkout.ReturnedDate = DateTime.Now;
+
+            if (checkout.DueDate < checkout.ReturnedDate)
+            {
+                TimeSpan overdueDays = checkout.ReturnedDate.Value - checkout.DueDate;  
+                checkout.Penalty = CalculatePenalty(overdueDays);
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index");   
+        }
+
+        private int CalculatePenalty(TimeSpan overdueDays)
+        {
+            return overdueDays.Days * 5;
+        }
     }
 }

@@ -1,29 +1,28 @@
-﻿<table class=" table table-bordered table-light">
-    <thead>
-    <td>MemberID</td>
-    <td>FirstName</td>
-    <td>LastName</td>
-    <td>PhoneNumber</td>
-    <td>RegistrationDate</td>
+@model List<Member>
+
+<table class="table table-striped table-hover table-bordered rounded shadow-sm mt-4">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th scope="col">member ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">phone Number</th>
+            <th scope="col">RegistrationDate</th>
+            <th scope="col">Action</th>
+            
+        </tr>
     </thead>
     <tbody>
-        @foreach (var members in @Model)
+        @foreach (var member in Model)
         {
             <tr>
+                <td>@member.MemberID</td>
+                <td>@member.FirstName @member.LastName</td>
+                <td>@member.PhoneNumber</td>
+                <td>@member.RegistrationDate.ToString("yyyy-MM-dd")</td>
+               
                 <td>
-                    @members.MemberID
-                </td>
-                <td>
-                    @members.FirstName
-                </td>
-                <td>
-                    @members.LastName
-                </td>
-                <td>
-                    @members.PhoneNumber
-                </td>
-                <td>
-                    @members.RegistrationDate
+                    <a asp-action="Edit" asp-route-id="@member.MemberID" class="btn btn-sm btn-warning mx-1">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@member.MemberID" class="btn btn-sm btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
                 </td>
             </tr>
         }

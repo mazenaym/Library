@@ -1,6 +1,7 @@
-﻿using Library.Data;
+using Library.Data;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
@@ -15,25 +16,59 @@ namespace Library.Controllers
         }
         public IActionResult Index()
         {
-            var memberList=_context.members.ToList();
+            var memberList= _context.members.ToList();
             return View(memberList);
         }
+
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Edit(int id)
         {
-            return View();
+            var member = _context.members.Find(id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            return View(member);
         }
 
+
         [HttpPost]
-        public IActionResult Create(Member member)
+        public IActionResult Edit(Member editedmember)
         {
             if (ModelState.IsValid)
             {
-                _context.members.Add(member);
+                _context.Entry(editedmember).State = EntityState.Modified;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(member);  // In case of validation errors, return the form with entered data
+            return View(editedmember);
+        }
+
+        [HttpGet]
+        [HttpPost]
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var member = _context.members.Find(id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+            if (Request.Method == HttpMethods.Post)
+            {
+
+                _context.members.Remove(member);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(member);
         }
     }
 }

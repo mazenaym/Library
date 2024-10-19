@@ -4,6 +4,7 @@ using Library.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241018221900_CheckoutColumnAddedInMember")]
+    partial class CheckoutColumnAddedInMember
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,7 +129,7 @@ namespace Library.Migrations
 
                     b.HasKey("BookID");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Library.Models.Checkout", b =>
@@ -161,7 +164,7 @@ namespace Library.Migrations
 
                     b.HasIndex("MemberID");
 
-                    b.ToTable("checkouts", (string)null);
+                    b.ToTable("checkouts");
                 });
 
             modelBuilder.Entity("Library.Models.Member", b =>
@@ -188,7 +191,7 @@ namespace Library.Migrations
 
                     b.HasKey("MemberID");
 
-                    b.ToTable("members", (string)null);
+                    b.ToTable("members");
                 });
 
             modelBuilder.Entity("Library.Models.Penalty", b =>
@@ -213,7 +216,7 @@ namespace Library.Migrations
 
                     b.HasKey("PenaltyID");
 
-                    b.ToTable("penalties", (string)null);
+                    b.ToTable("penalties");
                 });
 
             modelBuilder.Entity("Library.Models.Return", b =>
@@ -237,7 +240,7 @@ namespace Library.Migrations
 
                     b.HasIndex("CheckoutID");
 
-                    b.ToTable("returns", (string)null);
+                    b.ToTable("returns");
                 });
 
             modelBuilder.Entity("Library.Models.SearchHistory", b =>
@@ -260,7 +263,7 @@ namespace Library.Migrations
 
                     b.HasKey("SearchID");
 
-                    b.ToTable("searchHistories", (string)null);
+                    b.ToTable("searchHistories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

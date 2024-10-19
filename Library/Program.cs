@@ -22,6 +22,7 @@ namespace Library
             );
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddAuthorization(op => op.AddPolicy("AdminRole", p => p.RequireClaim("Admin", "Admin")));
 
             var app = builder.Build();
 

@@ -1,32 +1,61 @@
-﻿<table class=" table table-bordered table-light">
-    <thead>
-    <td>Member</td>
-    <td>Title</td>
-    <td>CheckoutDate</td>
-    <td>DueDate</td>
-    <td>ReturnedDate</td>
+@model IEnumerable<Library.Models.Checkout>
 
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover table-bordered rounded shadow-sm mt-4">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckoutDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnedDate)
+            </th>
+
+
+            <th></th>
+        </tr>
     </thead>
     <tbody>
-        @foreach (var books in @Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @books.Member.FirstName
+                    @Html.DisplayFor(modelItem => item.Book.Title)
                 </td>
                 <td>
-                    @books.Book.Title
-                </td>
-                <td>
-                    @books.CheckoutDate
-                </td>
-                <td>
-                    @books.DueDate
-                </td>
-                <td>
-                    @books.ReturnedDate
-                </td>
+                    @Html.DisplayFor(modelItem => item.Member.FirstName)  @Html.DisplayFor(modelItem => item.Member.LastName)
 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckoutDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CheckoutID" class="btn btn-sm btn-warning mx-1">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CheckoutID" class="btn btn-sm btn-info mx-1">Details</a>
+                </td>
             </tr>
         }
     </tbody>
