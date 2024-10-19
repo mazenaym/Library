@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
 {
-    [Authorize("AdminRole")]
+    
     public class BookController : Controller
     {
         private readonly ILogger<BookController> _logger;
@@ -21,11 +21,13 @@ namespace Library.Controllers
             return View(bookList);
         }
         [HttpGet]
+        [Authorize("AdminRole")]
         public IActionResult Add()
         {
             return View();
         }
         [HttpPost]
+        [Authorize("AdminRole")]
         public IActionResult Add(Book newBook)
         {
             if (ModelState.IsValid)
