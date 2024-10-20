@@ -1,4 +1,8 @@
-﻿<table class="table table-striped table-hover table-bordered rounded shadow-sm mt-4">
+﻿@{
+    AuthorizationResult authorizationResult = await Authorize.AuthorizeAsync(User, "AdminRole");
+}
+
+<table class="table table-striped table-hover table-bordered rounded shadow-sm mt-4">
     <thead class="bg-primary text-white">
         <tr>
             <th scope="col">Book ID</th>
@@ -18,16 +22,31 @@
                 <td>@book.Author</td>
                 <td>@book.Genre</td>
                 <td>@book.PublishedDate.ToString("yyyy-MM-dd")</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@book.BookID" class="btn btn-sm btn-warning mx-1">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@book.BookID" class="btn btn-sm btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
-                </td>
+
+
+                @if (authorizationResult.Succeeded)
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@book.BookID" class="btn btn-sm btn-warning mx-1">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@book.BookID" class="btn btn-sm btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+                    </td>
+                }
+                   
+                
+               
             </tr>
         }
     </tbody>
 </table>
-<div>
-    <a asp-controller="Book" asp-action="Add" class="btn btn-primary" style="font-weight: bold;">
-        Add Book
-    </a>
-</div>
+
+@if (authorizationResult.Succeeded)
+{
+    <div>
+        <a asp-controller="Book" asp-action="Add" class="btn btn-primary" style="font-weight: bold;">
+            Add Book
+        </a>
+    </div>
+}
+
+    
+

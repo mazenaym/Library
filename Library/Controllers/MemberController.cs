@@ -1,10 +1,13 @@
 using Library.Data;
 using Library.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
+    
+
     public class MemberController : Controller
     {
         private readonly ILogger<MemberController> _logger;

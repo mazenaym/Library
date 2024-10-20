@@ -1,4 +1,5 @@
 ﻿using Library.Data;
+using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers
@@ -21,7 +22,11 @@ namespace Library.Controllers
 
         public IActionResult ReturnBook(int checkoutId)
         {
+          
+
             var checkout = _context.checkouts.Find(checkoutId);
+            var book = _context.Books.FirstOrDefault(b => b.BookID == checkout.BookID);
+
             checkout.ReturnedDate = DateTime.Now;
 
             if (checkout.DueDate < checkout.ReturnedDate)
@@ -29,6 +34,15 @@ namespace Library.Controllers
                 TimeSpan overdueDays = checkout.ReturnedDate.Value - checkout.DueDate;  
                 checkout.Penalty = CalculatePenalty(overdueDays);
             }
+
+            if (book.AvailableCopies > 0)
+            {
+                book.AvailableCopies += 1;
+                _context.Books.Update(book);
+                _context.SaveChanges();
+            }
+
+
             _context.SaveChanges();
             return RedirectToAction("Index");   
         }
