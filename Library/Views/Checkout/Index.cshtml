@@ -8,10 +8,10 @@
 
 }
 
-<h1>Index</h1>
+<h1>Checkouts</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Index" asp-controller="Book">Create New</a>
 </p>
 
 
@@ -59,14 +59,23 @@
                     @Html.DisplayFor(modelItem => item.ReturnedDate)
                 </td>
 
-                @if (authorizationResult.Succeeded)
-                {
+                
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.CheckoutID" class="btn btn-sm btn-warning mx-1">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.CheckoutID" class="btn btn-sm btn-info mx-1">Details</a>
+                        @if (item.ReturnedDate == null) 
+                    {
+                        <form asp-action="Return" method="post">
+                            <input type="hidden" name="checkoutId" value="@item.CheckoutID" />
+                            <button type="submit" class="btn btn-primary">Return</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-success">Returned</span> 
+                    }
+                        <a asp-action="Details" asp-route-id="@item.CheckoutID" class="btn btn-secondary mx-1">Details</a>
                     </td>
 
-                }
+                
               
 
             </tr>

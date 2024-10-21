@@ -9,6 +9,7 @@
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Genre</th>
+            <th scope="col">Available Copies</th>
             <th scope="col">Published Date</th>
             <th scope="col">Actions</th>
         </tr>
@@ -21,6 +22,7 @@
                 <td>@book.Title</td>
                 <td>@book.Author</td>
                 <td>@book.Genre</td>
+                <td>@book.AvailableCopies</td>
                 <td>@book.PublishedDate.ToString("yyyy-MM-dd")</td>
 
 
@@ -29,7 +31,12 @@
                     <td>
                         <a asp-action="Edit" asp-route-id="@book.BookID" class="btn btn-sm btn-warning mx-1">Edit</a>
                         <a asp-action="Delete" asp-route-id="@book.BookID" class="btn btn-sm btn-danger mx-1" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+                        <a asp-action="Create" asp-controller="Checkout" asp-route-id="@book.BookID" class="btn btn-sm btn-success mx-1">Borrow</a>
                     </td>
+                }
+                else
+                {
+                    <td>  <a asp-action="Create" asp-controller="Checkout" asp-route-id="@book.BookID" class="btn btn-sm btn-success mx-1">Borrow</a></td>
                 }
                    
                 

@@ -110,13 +110,13 @@ namespace Library.Controllers
                 }
                 #endregion
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Done");
             }
 
             return View(checkout);
         }
 
-        // GET: Checkouts/Edit/5
+      
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -134,52 +134,51 @@ namespace Library.Controllers
             return View(checkout);
         }
 
-        // POST: Checkouts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CheckoutID,BookID,MemberID,CheckoutDate,DueDate,ReturnedDate,Penalty")] Checkout checkout)
+        public async Task<IActionResult> Return(int checkoutId)
         {
-            if (id != checkout.CheckoutID)
+            
+            var checkout = await _context.checkouts
+                                         .Include(c => c.Book)
+                                         .FirstOrDefaultAsync(c => c.CheckoutID == checkoutId);
+
+            if (checkout == null)
             {
-                return NotFound();
+                return NotFound(); 
             }
 
-            if (ModelState.IsValid)
+            if (checkout.ReturnedDate != null)
             {
-                if (checkout.CheckoutDate > checkout.ReturnedDate)
-                {
-                    TempData["DateValidationMessage"] = "Return Date should be greater than Checkout Date";
-                    return View();
-                }
-                
-                try
-                {
-                    _context.Update(checkout);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CheckoutExists(checkout.CheckoutID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                TempData["ErrorMessage"] = "This book has already been returned.";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BookID"] = new SelectList(_context.Books, "BookID", "Title", checkout.BookID);
-            ViewData["MemberID"] = new SelectList(_context.members, "MemberID", "FullName", checkout.MemberID);
-            return View(checkout);
+
+            
+            checkout.ReturnedDate = DateTime.Now;
+
+            
+            if (checkout.Book != null)
+            {
+                checkout.Book.AvailableCopies++;
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Book record not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Book returned successfully.";
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool CheckoutExists(int id)
+        public IActionResult Done()
         {
-            return _context.checkouts.Any(e => e.CheckoutID == id);
+            return View();
         }
     }
 }

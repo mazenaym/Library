@@ -8,18 +8,7 @@
 <h4>Checkout</h4>
 <hr />
 
-@if (TempData["AvailableCopiesValidationMessage"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["AvailableCopiesValidationMessage"]
-    </div>
-}
-@if (TempData["DateValidationMessage"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["DateValidationMessage"]
-    </div>
-}
+
 
 
 <div class="row">
@@ -63,7 +52,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-controller="Book">Back to List</a>
 </div>
 
 @section Scripts {
