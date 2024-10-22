@@ -25,7 +25,9 @@
                         <p class="card-text">
                             <strong>Checkout Date:</strong> @item.CheckoutDate.ToString("MMMM dd, yyyy")<br />
                             <strong>Due Date:</strong> @item.DueDate.ToString("MMMM dd, yyyy")<br />
-                            <strong>Returned Date:</strong> @(item.ReturnedDate?.ToString("MMMM dd, yyyy") ?? "Not Returned")
+                            <strong>Returned Date:</strong> @(item.ReturnedDate?.ToString("MMMM dd, yyyy") ?? "Not Returned")<br/>
+                            <strong>Penalty:</strong> @(item.Penalty.HasValue ? item.Penalty.Value.ToString("C") : "No Penalty")<br />
+
                         </p>
                     </div>
                     <div class="card-footer text-center">

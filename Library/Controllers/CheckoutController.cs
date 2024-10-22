@@ -17,11 +17,15 @@ namespace Library.Controllers
         }
         public IActionResult Index()
         {
-            var CheckoutList = _context.checkouts.Include("Member").Include("Book").ToList();
+            var CheckoutList = _context.checkouts
+        .Include(c => c.Member)
+        .Include(c => c.Book)
+        .ToList();
+           
             return View(CheckoutList);
         }
 
-        // GET: Checkouts/Details/5
+       
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -79,6 +83,9 @@ namespace Library.Controllers
 
             if (ModelState.IsValid)
             {
+               
+                checkout.Penalty = CalculatePenalty(checkout.CheckoutDate, checkout.DueDate);
+
                 _context.checkouts.Add(checkout);
 
                 #region Reduce No of Available Copies
@@ -115,8 +122,18 @@ namespace Library.Controllers
 
             return View(checkout);
         }
+        private decimal? CalculatePenalty(DateTime checkoutDate, DateTime dueDate)
+        {
+            if (DateTime.Now <= dueDate)
+            {
+                return null;
+            }
 
-      
+            var daysLate = (DateTime.Now - dueDate).Days;
+            return daysLate * 1.00m; 
+        }
+
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -158,7 +175,9 @@ namespace Library.Controllers
             
             checkout.ReturnedDate = DateTime.Now;
 
-            
+            checkout.Penalty = CalculatePenalty(checkout.CheckoutDate, checkout.DueDate); 
+
+
             if (checkout.Book != null)
             {
                 checkout.Book.AvailableCopies++;

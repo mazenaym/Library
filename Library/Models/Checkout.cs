@@ -18,7 +18,7 @@ namespace Library.Models
         public DateTime? ReturnedDate { get; set; }
         public Book? Book { get; set; }
         public Member? Member { get; set; }
-        public int? Penalty { get; set; }
+        public decimal? Penalty { get; set; }
 
     }
 }
